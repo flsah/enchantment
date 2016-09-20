@@ -1,6 +1,6 @@
 package com.enchantment.eaas.dao;
 
-import com.enchantment.eaas.domain.User;
+import com.enchantment.eaas.domain.Role;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,31 +11,31 @@ import java.util.List;
  * Created by liushuang on 2016/9/19.
  */
 @Component
-public class UserDAO {
+public class RoleDAO {
     private SqlSession session;
 
     @Autowired
-    public UserDAO(SqlSession session) {
+    public RoleDAO(SqlSession session) {
         this.session = session;
     }
 
-    public User get(User user) {
+    public Role get(Role role) {
         return null;
     }
 
-    public List<User> getList(User user) {
+    public List<Role> getList(Role role) {
         return null;
     }
 
-    public boolean add(User user) {
+    public boolean add(Role role) {
         return false;
     }
 
-    public boolean update(User user) {
+    public boolean update(Role role) {
         return false;
     }
 
-    public boolean remove(User user) {
+    public boolean remove(Role role) {
         return false;
     }
 }

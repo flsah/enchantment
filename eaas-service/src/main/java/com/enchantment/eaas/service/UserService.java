@@ -12,8 +12,12 @@ import java.util.List;
  */
 @Service
 public class UserService {
-    @Autowired
     private UserDAO dao;
+
+    @Autowired
+    public UserService(UserDAO dao) {
+        this.dao = dao;
+    }
 
     public boolean login(User user) {
         return dao.get(user) != null;
