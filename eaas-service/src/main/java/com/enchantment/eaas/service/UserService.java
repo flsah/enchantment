@@ -20,13 +20,11 @@ public class UserService {
     }
 
     public boolean login(User user) {
-        return dao.get(user) != null;
+        return dao.getUser(user) != null;
     }
 
     public User getUser(String id) {
-        User user = new User();
-        user.setId(id);
-        return dao.get(user);
+        return dao.get(id);
     }
 
     public List<User> getUsers(User user) {
@@ -42,8 +40,10 @@ public class UserService {
     }
 
     public boolean removeUser(String id) {
-        User user = new User();
-        user.setId(id);
-        return dao.remove(user);
+        return dao.remove(id);
+    }
+
+    public boolean removeUsers(List<String> ids) {
+        return dao.remove(ids);
     }
 }

@@ -5,34 +5,52 @@
 
 <mapper namespace="mapper.UserMapper">
     <sql id="user-columns">id,name,lname,ename,sex,mobile,tel,mail,fax,zipcode,address,passwd1,passwd2,passwd3,passwd4,passwd5,status,util,mdate,mid,otype,photourl,remark</sql>
+
     <select id="getUserById" resultType="com.enchantment.eaas.domain.User">
         select
             <include refid="user-columns"></include>
-        from t_user where ID=#{id}
+        from t_user where id=#{id}
     </select>
 
-    <select id="getUsers">
+    <select id="getUsers" resultType="com.enchantment.eaas.domain.User">
+        <bind name="p_name" value="'%' + _parameter.getName() + '%'" />
+        <bind name="p_lname" value="'%' + _parameter.getLname() + '%'" />
+        <bind name="p_ename" value="'%' + _parameter.getEname() + '%'" />
+        <bind name="p_mobile" value="'%' + _parameter.getMobile() + '%'" />
+        <bind name="p_mail" value="'%' + _parameter.getMail() + '%'" />
+
         select
             <include refid="user-columns"></include>
         from t_user
-        where
-        <if test="id != null and id != ''">
-            and id=#{id}
-        </if>
-        <if test="sex != 0">
-            and sex=#{sex, jdbcType=INTEGER}
-        </if>
-        <if test="status != 0">
-            and status=#{status, jdbcType=INTEGER}
-        </if>
-        name,
-        lname,
-        ename,
-        mobile,
-        mail,
+        <where>
+            <if test="id != null and id != ''">
+                and id=#{id}
+            </if>
+            <if test="sex != 0">
+                and sex=#{sex, jdbcType=INTEGER}
+            </if>
+            <if test="status != 0">
+                and status=#{status, jdbcType=INTEGER}
+            </if>
+            <if test="name != null and name != ''">
+                and name like #{p_name}
+            </if>
+            <if test="lname != null and lname != ''">
+                and lname like #{p_lname}
+            </if>
+            <if test="ename != null and ename != ''">
+                and ename like #{p_ename}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and mobile like #{p_mobile}
+            </if>
+            <if test="mail != null and mail != ''">
+                and mail like #{p_mail}
+            </if>
+        </where>
     </select>
 
-    <insert id="addUser">
+    <insert id="addUser" parameterType="com.enchantment.eaas.domain.User">
         insert into t_user
           <include refid="user-columns"></include>
         values (#{id},#{name},#{lname},#{ename},#{sex},#{mobile},#{tel},#{mail},#{fax},#{zipcode},#{address},#{passwd1},#{passwd2},#{passwd3},#{passwd4},#{passwd5},#{status},#{util},#{mdate},#{mid},#{otype},#{photourl},#{remark})
@@ -63,10 +81,18 @@
             otype=#{otype},
             photourl=#{photourl},
             remark=#{remark}
-        where ID=#{id}
+        where id=#{id}
     </update>
 
     <delete id="delUser">
         delete from t_user where id=#{id}
+    </delete>
+
+    <delete id="delUsers">
+        delete from t_user where id in
+        <foreach item="ids" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{ids}
+        </foreach>
     </delete>
 </mapper>
