@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.UserMapper">
-    <sql id="user-columns">id,name,lname,ename,sex,mobile,tel,mail,fax,zipcode,address,passwd1,passwd2,passwd3,passwd4,passwd5,status,util,mdate,mid,otype,photourl,remark</sql>
+    <sql id="user-columns">id,name,lname,ename,sex,mobile,tel,mail,fax,zipcode,address,status,until,mdate,mid,otype,photourl,remark</sql>
 
     <select id="getUserById" resultType="com.enchantment.eaas.domain.User">
         select
@@ -13,12 +13,6 @@
     </select>
 
     <select id="getUsers" resultType="com.enchantment.eaas.domain.User">
-        <bind name="p_name" value="'%' + _parameter.getName() + '%'" />
-        <bind name="p_lname" value="'%' + _parameter.getLname() + '%'" />
-        <bind name="p_ename" value="'%' + _parameter.getEname() + '%'" />
-        <bind name="p_mobile" value="'%' + _parameter.getMobile() + '%'" />
-        <bind name="p_mail" value="'%' + _parameter.getMail() + '%'" />
-
         select
             <include refid="user-columns"></include>
         from t_user
@@ -33,18 +27,23 @@
                 and status=#{status, jdbcType=INTEGER}
             </if>
             <if test="name != null and name != ''">
+                <bind name="p_name" value="'%' + _parameter.getName() + '%'" />
                 and name like #{p_name}
             </if>
             <if test="lname != null and lname != ''">
-                and lname like #{p_lname}
+                <bind name="p_lname" value="'%' + _parameter.getLname() + '%'" />
+                and lname like #{p_lname}q
             </if>
             <if test="ename != null and ename != ''">
+                <bind name="p_ename" value="'%' + _parameter.getEname() + '%'" />
                 and ename like #{p_ename}
             </if>
             <if test="mobile != null and mobile != ''">
+                <bind name="p_mobile" value="'%' + _parameter.getMobile() + '%'" />
                 and mobile like #{p_mobile}
             </if>
             <if test="mail != null and mail != ''">
+                <bind name="p_mail" value="'%' + _parameter.getMail() + '%'" />
                 and mail like #{p_mail}
             </if>
         </where>
@@ -52,8 +51,8 @@
 
     <insert id="addUser" parameterType="com.enchantment.eaas.domain.User">
         insert into t_user
-          <include refid="user-columns"></include>
-        values (#{id},#{name},#{lname},#{ename},#{sex},#{mobile},#{tel},#{mail},#{fax},#{zipcode},#{address},#{passwd1},#{passwd2},#{passwd3},#{passwd4},#{passwd5},#{status},#{util},#{mdate},#{mid},#{otype},#{photourl},#{remark})
+        (<include refid="user-columns"></include>)
+        values (#{id},#{name},#{lname},#{ename},#{sex},#{mobile},#{tel},#{mail},#{fax},#{zipcode},#{address},#{passwd1},#{passwd2},#{passwd3},#{passwd4},#{passwd5},#{status},#{until},#{mdate},#{mid},#{otype},#{photourl},#{remark})
     </insert>
 
     <update id="modUser">
@@ -75,7 +74,7 @@
             passwd4=#{passwd4},
             passwd5=#{passwd5},
             status=#{status},
-            util=#{util},
+            until=#{until},
             mdate=#{mdate},
             mid=#{mid},
             otype=#{otype},

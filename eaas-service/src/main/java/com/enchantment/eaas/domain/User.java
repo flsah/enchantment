@@ -19,14 +19,14 @@ public class User implements Serializable {
     private String fax;
     private String zipcode;
     private String address;
-    private int passwd1;
-    private int passwd2;
-    private int passwd3;
-    private int passwd4;
-    private int passwd5;
+    private String passwd1;
+    private String passwd2;
+    private String passwd3;
+    private String passwd4;
+    private String passwd5;
     private int status;
-    private Date util;
-    Timestamp mdate;
+    private Date until;
+    private Timestamp mdate;
     private String mid;
     private int otype;
     private String photourl;
@@ -120,43 +120,43 @@ public class User implements Serializable {
         this.address = address;
     }
 
-    public int getPasswd1() {
+    public String getPasswd1() {
         return passwd1;
     }
 
-    public void setPasswd1(int passwd1) {
+    public void setPasswd1(String passwd1) {
         this.passwd1 = passwd1;
     }
 
-    public int getPasswd2() {
+    public String getPasswd2() {
         return passwd2;
     }
 
-    public void setPasswd2(int passwd2) {
+    public void setPasswd2(String passwd2) {
         this.passwd2 = passwd2;
     }
 
-    public int getPasswd3() {
+    public String getPasswd3() {
         return passwd3;
     }
 
-    public void setPasswd3(int passwd3) {
+    public void setPasswd3(String passwd3) {
         this.passwd3 = passwd3;
     }
 
-    public int getPasswd4() {
+    public String getPasswd4() {
         return passwd4;
     }
 
-    public void setPasswd4(int passwd4) {
+    public void setPasswd4(String passwd4) {
         this.passwd4 = passwd4;
     }
 
-    public int getPasswd5() {
+    public String getPasswd5() {
         return passwd5;
     }
 
-    public void setPasswd5(int passwd5) {
+    public void setPasswd5(String passwd5) {
         this.passwd5 = passwd5;
     }
 
@@ -168,12 +168,12 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public Date getUtil() {
-        return util;
+    public Date getUntil() {
+        return until;
     }
 
-    public void setUtil(Date util) {
-        this.util = util;
+    public void setUntil(Date until) {
+        this.until = until;
     }
 
     public Timestamp getMdate() {

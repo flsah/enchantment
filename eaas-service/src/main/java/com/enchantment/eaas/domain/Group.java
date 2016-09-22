@@ -16,7 +16,7 @@ public class Group implements Serializable {
     private String address;
     private String zipcode;
     private int status;
-    private Date util;
+    private Date until;
     private Timestamp mdate;
     private String mid;
     private int otype;
@@ -86,12 +86,12 @@ public class Group implements Serializable {
         this.status = status;
     }
 
-    public Date getUtil() {
-        return util;
+    public Date getUntil() {
+        return until;
     }
 
-    public void setUtil(Date util) {
-        this.util = util;
+    public void setUntil(Date until) {
+        this.until = until;
     }
 
     public Timestamp getMdate() {

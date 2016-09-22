@@ -1,5 +1,7 @@
 package com.enchantment.eaas.controller;
 
+import static com.enchantment.eaas.Constants.*;
+import com.enchantment.eaas.domain.ResponseEntity;
 import com.enchantment.eaas.domain.User;
 import com.enchantment.eaas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,18 @@ public class UserController {
      */
     @RequestMapping(value = "/get/{id}",
             method = {RequestMethod.POST, RequestMethod.GET})
-    public User getUser(@PathVariable("id") String id) {
-        return service.getUser(id);
+    public ResponseEntity getUser(@PathVariable("id") String id) {
+        User reUser = service.getUser(id);
+        ResponseEntity entity = new ResponseEntity();
+
+        if (reUser != null) {
+            entity.setStatus(RESPONSE_STATUS_SUC);
+            entity.setData(reUser);
+        } else {
+            entity.setStatus(RESPONSE_STATUS_FAL);
+        }
+
+        return entity;
     }
 
     /**
@@ -39,8 +51,18 @@ public class UserController {
      * @return true if user is exists, otherwise false
      */
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
-    public boolean auth(@RequestBody User user) {
-        return service.login(user);
+    public ResponseEntity auth(@RequestBody User user) {
+        ResponseEntity entity = new ResponseEntity();
+        User reUser = service.auth(user);
+
+        if (reUser != null) {
+            entity.setStatus(RESPONSE_STATUS_SUC);
+            entity.setData(reUser.getId());
+        } else {
+            entity.setStatus(RESPONSE_STATUS_FAL);
+        }
+
+        return entity;
     }
 
     /**
@@ -48,11 +70,19 @@ public class UserController {
      * <p>Request method is <code>PUT</code></p>
      *
      * @param user new user information
+     * @param cuid current user id
      * @return true if add successfully, otherwise false
      */
     @RequestMapping(value = "/add", method = RequestMethod.PUT)
-    public boolean useradd(User user) {
-        return service.addUser(user);
+    public ResponseEntity useradd(@RequestBody User user,
+                                  @ModelAttribute String cuid) {
+        ResponseEntity entity = new ResponseEntity();
+        if (service.addUser(user, cuid)) {
+            entity.setStatus(RESPONSE_STATUS_SUC);
+        } else {
+            entity.setStatus(RESPONSE_STATUS_FAL);
+        }
+        return entity;
     }
 
     /**

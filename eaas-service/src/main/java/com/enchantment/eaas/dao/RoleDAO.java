@@ -27,6 +27,10 @@ public class RoleDAO {
         return null;
     }
 
+    public List<Role> getRolesByUser(String userId) {
+        return null;
+    }
+
     public boolean add(Role role) {
         return false;
     }

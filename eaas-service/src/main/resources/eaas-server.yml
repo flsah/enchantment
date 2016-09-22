@@ -26,3 +26,12 @@ eureka:
 # HTTP Server
 server:
   port: 2001 # HTTP (Tomcat) port
+
+# EAAS config
+eaas:
+  redis:
+    host: localhost
+    port: 6379
+  crypto:
+    type: md5
+    salt: test
