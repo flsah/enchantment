@@ -1,9 +1,8 @@
 package com.enchantment.eaas;
 
-import com.enchantment.eaas.EAASConfiguration;
+import com.enchantment.eaas.config.RedisConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
 import java.util.List;
@@ -19,8 +18,9 @@ public class CacheUtil {
     private Jedis jedis;
 
     @Autowired
-    public CacheUtil(EAASConfiguration config) {
-        jedis = new Jedis(config.getRedisHost(), config.getRedisPort());
+    public CacheUtil(RedisConfig redisConfig) {
+//        EAASConfiguration.Redis redisConfig = config.getRedis();
+        jedis = new Jedis(redisConfig.getHost(), redisConfig.getPort());
     }
 
     public void push(String key, String val) {
@@ -40,5 +40,9 @@ public class CacheUtil {
 
     public void push (String key, Number val) {
         jedis.set(key, val.toString());
+    }
+
+    public String get(String key) {
+        return jedis.get(key);
     }
 }

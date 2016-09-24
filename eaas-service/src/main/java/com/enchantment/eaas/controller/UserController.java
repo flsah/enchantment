@@ -1,11 +1,14 @@
 package com.enchantment.eaas.controller;
 
-import static com.enchantment.eaas.Constants.*;
+import com.enchantment.eaas.CacheUtil;
 import com.enchantment.eaas.domain.ResponseEntity;
 import com.enchantment.eaas.domain.User;
 import com.enchantment.eaas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import static com.enchantment.eaas.Constants.RESPONSE_STATUS_FAL;
+import static com.enchantment.eaas.Constants.RESPONSE_STATUS_SUC;
 
 /**
  * The controller which to handle the request about user entity.<br/>
@@ -17,9 +20,12 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private UserService service;
 
+    private CacheUtil cache;
+
     @Autowired
-    public UserController(UserService service) {
+    public UserController(UserService service, CacheUtil cache) {
         this.service = service;
+        this.cache = cache;
     }
 
     /**
