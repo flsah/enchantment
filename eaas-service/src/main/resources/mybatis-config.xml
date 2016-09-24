@@ -6,7 +6,6 @@
         <package name="com.enchantment.eaas.aliases"/>
     </typeAliases>
     <mappers>
-        <mapper resource="mapper/AccountMapper.xml"/>
         <mapper resource="mapper/UserMapper.xml"/>
     </mappers>
 </configuration>
