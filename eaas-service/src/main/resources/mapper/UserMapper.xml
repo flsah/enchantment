@@ -7,14 +7,12 @@
     <sql id="user-columns">id,name,lname,ename,sex,mobile,tel,mail,fax,zipcode,address,status,until,mdate,mid,otype,photourl,remark</sql>
 
     <select id="getUserById" resultType="com.enchantment.eaas.domain.User">
-        select
-            <include refid="user-columns"></include>
+        select <include refid="user-columns"></include>
         from t_user where id=#{id}
     </select>
 
     <select id="getUsers" resultType="com.enchantment.eaas.domain.User">
-        select
-            <include refid="user-columns"></include>
+        select <include refid="user-columns"></include>
         from t_user
         <where>
             <if test="id != null and id != ''">

@@ -1,17 +1,4 @@
 # Configure this Enchantment Authorization and Authentication Server
-# Spring properties
-spring:
-  application:
-    name: eaas-service
-  freemarker:
-      enabled: false   # Ignore Eureka dashboard FreeMarker templates
-  thymeleaf:
-    cache: false   # Allow Thymeleaf templates to be reloaded at runtime
-    prefix: classpath:/eaas-server/templates/    # Trailing / mandatory
-                   # Template location for this application only
-# Map the error path to error template (for Thymeleaf)
-error:
-  path: /error
 
 # EAA Server Access
 eureka:
@@ -27,11 +14,42 @@ eureka:
 server:
   port: 2001 # HTTP (Tomcat) port
 
+# Spring properties
+spring:
+  application:
+    name: eaas-service
+  freemarker:
+      enabled: false   # Ignore Eureka dashboard FreeMarker templates
+  thymeleaf:
+    cache: false   # Allow Thymeleaf templates to be reloaded at runtime
+    prefix: classpath:/eaas-server/templates/    # Trailing / mandatory
+                   # Template location for this application only
+  datasource:
+    name: dataSource
+    driverClassName: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://192.168.121.131:3306/eaas
+    username: eaas
+    password: 123456
+
+mybatis:
+  config-location: classpath:/mybatis-config.xml
+
+# Map the error path to error template (for Thymeleaf)
+error:
+  path: /error
+
 # EAAS config
 eaas:
   redis:
-    host: localhost
+    host: 192.168.121.131
     port: 6379
   crypto:
     type: md5
     salt: test
+
+# Logging config
+logging:
+  level:
+    root: INFO
+    com:
+      enchantment: DEBUG
