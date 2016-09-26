@@ -3,9 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <package name="com.enchantment.eaas.aliases"/>
+        <package name="com.enchantment.eaas.domain"/>
     </typeAliases>
     <mappers>
         <mapper resource="mapper/UserMapper.xml"/>
     </mappers>
+    <settings>
+        <setting name="logImpl" value="SLF4J"/>
+    </settings>
 </configuration>
