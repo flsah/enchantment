@@ -47,4 +47,10 @@ public class WebServer {
 	public EAAService eaaService() {
 		return new EAAService(EAAS_SERVICE_URL);
 	}
+
+	@Bean
+	public ExampleController exampleController() {
+		return new ExampleController(eaaService());
+	}
+
 }

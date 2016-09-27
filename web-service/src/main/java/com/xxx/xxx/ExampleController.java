@@ -2,6 +2,7 @@ package com.xxx.xxx;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -10,16 +11,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class ExampleController {
-    @Autowired
     private EAAService eaaService;
+
+    @Autowired
+    public ExampleController(EAAService eaaService) {
+        this.eaaService = eaaService;
+    }
 
     @RequestMapping(value = "/example", method = RequestMethod.GET)
     public String index() {
         return "example/index";
     }
 
-    @RequestMapping("/login")
-    public String login(String name) {
-        return null;
+    @RequestMapping(value = "/login", produces = "application/json")
+    public ResponseEntity login(@RequestBody String name) {
+        return eaaService.login(name);
     }
 }
