@@ -1,6 +1,5 @@
 package com.enchantment.eaas.controller;
 
-import com.enchantment.eaas.CacheUtil;
 import com.enchantment.eaas.domain.ResponseEntity;
 import com.enchantment.eaas.domain.User;
 import com.enchantment.eaas.service.UserService;
@@ -20,12 +19,9 @@ import static com.enchantment.eaas.Constants.RESPONSE_STATUS_SUC;
 public class UserController {
     private UserService service;
 
-    private CacheUtil cache;
-
     @Autowired
-    public UserController(UserService service, CacheUtil cache) {
+    public UserController(UserService service) {
         this.service = service;
-        this.cache = cache;
     }
 
     /**
