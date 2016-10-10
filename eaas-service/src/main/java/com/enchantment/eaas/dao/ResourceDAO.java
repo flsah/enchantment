@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * Created by liushuang on 2016/9/19.
+ * DAO for resource table
+ *
+ * Created by genbatis on 2016-10-10 15:52:34.
  */
 @Component
 public class ResourceDAO {
@@ -19,23 +21,36 @@ public class ResourceDAO {
         this.session = session;
     }
 
-    public Resource get(Resource resource) {
-        return null;
+    public Resource get(String id) {
+        return session.selectOne("getResourceById", id);
+    }
+
+    public Resource getResource(Resource resource) {
+        List<Resource> resources = session.selectList("getResources", resource);
+
+        if (resources.isEmpty())
+            return null;
+
+        return resources.get(0);
     }
 
     public List<Resource> getList(Resource resource) {
-        return null;
+        return session.selectList("getResources", resource);
     }
 
     public boolean add(Resource resource) {
-        return false;
+        return session.insert("addResource", resource) > 0;
     }
 
     public boolean update(Resource resource) {
-        return false;
+        return session.update("modResource", resource) > 0;
     }
 
-    public boolean remove(Resource resource) {
-        return false;
+    public boolean remove(String id) {
+        return session.delete("delResource", id) > 0;
+    }
+
+    public boolean remove(List<String> ids) {
+        return session.delete("delResources", ids) > 0;
     }
 }

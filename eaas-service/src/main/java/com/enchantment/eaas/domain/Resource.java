@@ -1,12 +1,13 @@
 package com.enchantment.eaas.domain;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * Created by liushuang on 2016/9/20.
+ * Resource entity
+ *
+ * Created by genbatis on 2016-10-10 15:52:35.
  */
-public class Resource implements Serializable {
+public class Resource {
     private String id;
     private String name;
     private String uri;
@@ -79,4 +80,5 @@ public class Resource implements Serializable {
     public void setOtype(int otype) {
         this.otype = otype;
     }
+
 }

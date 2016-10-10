@@ -1,13 +1,14 @@
 package com.enchantment.eaas.domain;
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
- * Created by liushuang on 2016/9/20.
+ * Group entity
+ *
+ * Created by genbatis on 2016-10-10 14:39:32.
  */
-public class Group implements Serializable {
+public class Group {
     private String id;
     private String name;
     private String level;
@@ -125,4 +126,5 @@ public class Group implements Serializable {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
 }

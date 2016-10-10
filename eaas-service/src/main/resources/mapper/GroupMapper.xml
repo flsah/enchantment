@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.GroupMapper">
+    <sql id="group-columns">id,name,level,tel,fax,address,zipcode,status,until,mdate,mid,otype,remark</sql>
+
+    <select id="getGroupById" resultType="com.enchantment.eaas.domain.Group">
+        select <include refid="group-columns"></include>
+        from t_group where id=#{id}
+    </select>
+
+    <select id="getGroups" resultType="com.enchantment.eaas.domain.Group">
+        select <include refid="group-columns"></include>
+        from t_group
+        <where>
+            <!-- self define -->
+        </where>
+    </select>
+
+    <insert id="addGroup" parameterType="com.enchantment.eaas.domain.Group">
+        insert into t_group
+        (<include refid="group-columns"></include>)
+        values (#{id},#{name},#{level},#{tel},#{fax},#{address},#{zipcode},#{status},#{until},#{mdate},#{mid},#{otype},#{remark})
+    </insert>
+
+    <update id="modGroup">
+        update t_group set
+            id=#{id},
+            name=#{name},
+            level=#{level},
+            tel=#{tel},
+            fax=#{fax},
+            address=#{address},
+            zipcode=#{zipcode},
+            status=#{status},
+            until=#{until},
+            mdate=#{mdate},
+            mid=#{mid},
+            otype=#{otype},
+            remark=#{remark}
+        where id=#{id}
+    </update>
+
+    <delete id="delGroup">
+        delete from t_group where id=#{id}
+    </delete>
+
+    <delete id="delGroups">
+        delete from t_group where id in
+        <foreach item="ids" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+</mapper>

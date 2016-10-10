@@ -27,7 +27,7 @@ spring:
   datasource:
     name: dataSource
     driverClassName: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://192.168.121.131:3306/eaas
+    url: jdbc:mariadb://localhost:3306/eaas
     username: eaas
     password: 123456
 

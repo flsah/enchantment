@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.ResourceMapper">
+    <sql id="resource-columns">id,name,uri,type,status,mdate,mid,otype</sql>
+
+    <select id="getResourceById" resultType="com.enchantment.eaas.domain.Resource">
+        select <include refid="resource-columns"></include>
+        from t_resource where id=#{id}
+    </select>
+
+    <select id="getResources" resultType="com.enchantment.eaas.domain.Resource">
+        select <include refid="resource-columns"></include>
+        from t_resource
+        <where>
+            <!-- self define -->
+        </where>
+    </select>
+
+    <insert id="addResource" parameterType="com.enchantment.eaas.domain.Resource">
+        insert into t_resource
+        (<include refid="resource-columns"></include>)
+        values (#{id},#{name},#{uri},#{type},#{status},#{mdate},#{mid},#{otype})
+    </insert>
+
+    <update id="modResource">
+        update t_resource set
+            id=#{id},
+            name=#{name},
+            uri=#{uri},
+            type=#{type},
+            status=#{status},
+            mdate=#{mdate},
+            mid=#{mid},
+            otype=#{otype}
+        where id=#{id}
+    </update>
+
+    <delete id="delResource">
+        delete from t_resource where id=#{id}
+    </delete>
+
+    <delete id="delResources">
+        delete from t_resource where id in
+        <foreach item="ids" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+</mapper>

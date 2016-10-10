@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.RoleMapper">
+    <sql id="role-columns">id,name,status,until,mdate,mid,otype,remark</sql>
+
+    <select id="getRoleById" resultType="com.enchantment.eaas.domain.Role">
+        select <include refid="role-columns"></include>
+        from t_role where id=#{id}
+    </select>
+
+    <select id="getRoles" resultType="com.enchantment.eaas.domain.Role">
+        select <include refid="role-columns"></include>
+        from t_role
+        <where>
+            <!-- self define -->
+        </where>
+    </select>
+
+    <insert id="addRole" parameterType="com.enchantment.eaas.domain.Role">
+        insert into t_role
+        (<include refid="role-columns"></include>)
+        values (#{id},#{name},#{status},#{until},#{mdate},#{mid},#{otype},#{remark})
+    </insert>
+
+    <update id="modRole">
+        update t_role set
+            id=#{id},
+            name=#{name},
+            status=#{status},
+            until=#{until},
+            mdate=#{mdate},
+            mid=#{mid},
+            otype=#{otype},
+            remark=#{remark}
+        where id=#{id}
+    </update>
+
+    <delete id="delRole">
+        delete from t_role where id=#{id}
+    </delete>
+
+    <delete id="delRoles">
+        delete from t_role where id in
+        <foreach item="ids" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+</mapper>

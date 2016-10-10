@@ -50,7 +50,7 @@
     <insert id="addUser" parameterType="com.enchantment.eaas.domain.User">
         insert into t_user
         (<include refid="user-columns"></include>)
-        values (#{id},#{name},#{lname},#{ename},#{sex},#{mobile},#{tel},#{mail},#{fax},#{zipcode},#{address},#{passwd1},#{passwd2},#{passwd3},#{passwd4},#{passwd5},#{status},#{until},#{mdate},#{mid},#{otype},#{photourl},#{remark})
+        values (#{id},#{name},#{lname},#{ename},#{sex},#{mobile},#{tel},#{mail},#{fax},#{zipcode},#{address},#{status},#{until},#{mdate},#{mid},#{otype},#{photourl},#{remark})
     </insert>
 
     <update id="modUser">

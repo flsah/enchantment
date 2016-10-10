@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * Created by liushuang on 2016/9/19.
+ * DAO for role table
+ *
+ * Created by genbatis on 2016-10-10 15:52:49.
  */
 @Component
 public class RoleDAO {
@@ -19,27 +21,36 @@ public class RoleDAO {
         this.session = session;
     }
 
-    public Role get(Role role) {
-        return null;
+    public Role get(String id) {
+        return session.selectOne("getRoleById", id);
+    }
+
+    public Role getRole(Role role) {
+        List<Role> roles = session.selectList("getRoles", role);
+
+        if (roles.isEmpty())
+            return null;
+
+        return roles.get(0);
     }
 
     public List<Role> getList(Role role) {
-        return null;
-    }
-
-    public List<Role> getRolesByUser(String userId) {
-        return null;
+        return session.selectList("getRoles", role);
     }
 
     public boolean add(Role role) {
-        return false;
+        return session.insert("addRole", role) > 0;
     }
 
     public boolean update(Role role) {
-        return false;
+        return session.update("modRole", role) > 0;
     }
 
-    public boolean remove(Role role) {
-        return false;
+    public boolean remove(String id) {
+        return session.delete("delRole", id) > 0;
+    }
+
+    public boolean remove(List<String> ids) {
+        return session.delete("delRoles", ids) > 0;
     }
 }

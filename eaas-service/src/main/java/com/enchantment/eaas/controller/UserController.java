@@ -3,8 +3,14 @@ package com.enchantment.eaas.controller;
 import com.enchantment.eaas.domain.ResponseEntity;
 import com.enchantment.eaas.domain.User;
 import com.enchantment.eaas.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import static com.enchantment.eaas.Constants.RESPONSE_STATUS_FAL;
 import static com.enchantment.eaas.Constants.RESPONSE_STATUS_SUC;
@@ -72,14 +78,12 @@ public class UserController {
      * <p>Request method is <code>PUT</code></p>
      *
      * @param user new user information
-     * @param cuid current user id
      * @return true if add successfully, otherwise false
      */
     @RequestMapping(value = "/add", method = RequestMethod.PUT)
-    public ResponseEntity useradd(@RequestBody User user,
-                                  @ModelAttribute String cuid) {
+    public ResponseEntity useradd(@RequestBody User user) {
         ResponseEntity entity = new ResponseEntity();
-        if (service.addUser(user, cuid)) {
+        if (service.addUser(user)) {
             entity.setStatus(RESPONSE_STATUS_SUC);
         } else {
             entity.setStatus(RESPONSE_STATUS_FAL);

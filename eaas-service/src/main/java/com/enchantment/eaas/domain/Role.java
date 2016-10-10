@@ -1,13 +1,14 @@
 package com.enchantment.eaas.domain;
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
- * Created by liushuang on 2016/9/20.
+ * Role entity
+ *
+ * Created by genbatis on 2016-10-10 15:52:49.
  */
-public class Role implements Serializable {
+public class Role {
     private String id;
     private String name;
     private int status;
@@ -80,4 +81,5 @@ public class Role implements Serializable {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
 }

@@ -22,15 +22,10 @@ import static com.enchantment.eaas.Constants.STAT_INIT;
 @Service
 public class UserService {
     private UserDAO userDAO;
-    private RoleDAO roleDAO;
-    private CacheUtil cache;
 
     @Autowired
-    public UserService(UserDAO userDAO, RoleDAO roleDAO,
-                       CacheUtil cache) {
+    public UserService(UserDAO userDAO) {
         this.userDAO = userDAO;
-        this.roleDAO = roleDAO;
-        this.cache = cache;
     }
 
     public User auth(User user) {
@@ -45,11 +40,10 @@ public class UserService {
         return userDAO.getList(user);
     }
 
-    public boolean addUser(User user, final String cuid) {
+    public boolean addUser(User user) {
         user.setId(Utils.buildHashCode(user));
         user.setStatus(STAT_INIT);
         user.setMdate(new Timestamp(System.currentTimeMillis()));
-        user.setMid(cuid);
         user.setOtype(OPER_N);
         return userDAO.add(user);
     }
